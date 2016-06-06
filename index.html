@@ -17,6 +17,7 @@
 
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
+    var color=["red", "blue", "green", "yellow", "purple", "orange"];
 
     function Square(x,y,length,color) {
         this.x=x;
@@ -32,10 +33,19 @@
         };
     }
 
+    var base_x=20;
+    var base_y=20;
+    var base_length=40;
+    var grid;
+    for(var i=0; i<9; i++) {
+        for(var j=0; j<9; j++) {
+            var col=Math.floor(Math.random()*6);
+            var sq=new Square(base_x+i*base_length, base_y+j*base_length, base_length, color[col]);
+            sq.draw();
+            //grid[i][j]=sq;
+        }
+    }
 
-    var sq=new Square(20,20,40,"red");
-    console.log("sq properties: " + sq.x);
-    sq.draw();
 
 
     // ctx.beginPath();
