@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Match-Three Game</title>
+    <style>
+        * {padding: 0px;}
+        div {border: 1px solid black; width: 500px; height:500px; }
+    </style>
+</head>
+<body>
+    <div>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    </div>
+
+    <script>
+
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    function Square(x,y,length,color) {
+        this.x=x;
+        this.y=y;
+        this.length=length;
+        this.color=color;
+        this.draw = function() {
+            ctx.beginPath();
+            ctx.rect(this.x, this.y, this.length, this.length);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.closePath();
+        };
+    }
+
+
+    var sq=new Square(20,20,40,"red");
+    console.log("sq properties: " + sq.x);
+    sq.draw();
+
+
+    // ctx.beginPath();
+    // ctx.rect(20, 40, 40, 40);
+    // ctx.fillStyle = "red";
+    // ctx.fill();
+    // ctx.closePath();
+
+
+
+
+    </script>
+</body>
+</html>
