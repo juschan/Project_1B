@@ -19,10 +19,14 @@ $(function() {
 function initGrid() {
     //fill grid with random squares.
     //content is a colour code. '0' is white. 1-6 are as per css.
-    for(var i=0; i<gridLength; i++) {
-       var col=Math.floor(Math.random()*7)+1;
-       grid[i]=(col);
-      }
+    //for(var i=0; i<gridLength; i++) {
+    //  var col=Math.floor(Math.random()*7)+1;
+    //   grid[i]=(col);
+    //  }
+
+    //start with viable starting grid.
+    grid=[1,1,7,6,3,5,7,3,4,3,4,3,6,6,2,3,2,7,2,4,4,1,4,6,2,4,4,6,3,1,5,3,4,7,3,6,5,6,3,7,7,5,7,4,1,3,1,5,4,6,5,2,1,6,2,1,4,5,5,4,4,3,3,2];
+    console.log("Number of moves: " + numberOfMoves());
 }
 
 function updateDisplay() {
@@ -54,7 +58,7 @@ function selectSquare() {
 
 function numberOfMoves() {
     var moveCount=0;
-    for(var i=0; i<moveLength; i++) {
+    for(var i=0; i<movesLength; i++) {
         for (var j=0; j<moves[i][4] ; j++) { //row
             for (var k=moves[i][2]; k<moves[i][3]; k++) { //column
                 l=j+k*8;
