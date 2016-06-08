@@ -20,7 +20,7 @@ function initGrid() {
     //fill grid with random squares.
     //content is a colour code. '0' is white. 1-6 are as per css.
     for(var i=0; i<gridLength; i++) {
-       var col=Math.floor(Math.random()*6)+1;
+       var col=Math.floor(Math.random()*7)+1;
        grid[i]=(col);
       }
 }
@@ -42,8 +42,6 @@ var grid=new Array(64);
 var gridLength=grid.length;
 var gridSideLength=8;
 var selected=[null,null];
-
-
 
 //initialise grid
 initGrid();
