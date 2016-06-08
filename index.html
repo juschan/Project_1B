@@ -41,6 +41,8 @@ function updateDisplay() {
 var grid=new Array(64);
 var gridLength=grid.length;
 var gridSideLength=8;
+var selected=[null,null];
+
 
 
 //initialise grid
@@ -49,6 +51,22 @@ initGrid();
 //Update display
 updateDisplay();
 
+//handle click on squares. Must occur after updateDisplay
+$('sq').click(function() {
+     //console.log("click!");
+     //console.log($(this).index());
+     if (selected[0]===null) {
+         selected[0]=$(this).index();
+         console.log("selected first sq")
+         //highlight box
+     } else if (selected[0]!==null && selected[1]===null) {
+         selected[1]=$(this).index();
+         console.log("selected second sq")
+         //hightlight box
+         //do processing
+     }
+
+});
 
 
 });
