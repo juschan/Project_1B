@@ -15,6 +15,28 @@
     <script>
 
 $(function() {
+
+function initGrid() {
+    //fill grid with random squares.
+    for(var i=0; i<gridLength; i++) {
+       var col=Math.floor(Math.random()*6)+1;
+       grid[i]=(col);
+      }
+}
+
+function updateDisplay() {
+    //display grid - first square is bottom left
+    var str=new Array();
+    for (var i=gridSideLength-1; i>=0; i--) {
+         for(var j=0; j<gridSideLength; j++) {
+             str.push("<sq class='col" + grid[i*8+j] + "'></sq>");
+         }
+     }
+    $('#canvas').html("");
+    $('#canvas').html(str.join(""));
+}
+
+
 //create grid, colours
 var grid=new Array(64);
 var gridLength=grid.length;
@@ -22,24 +44,13 @@ var gridSideLength=8;
 
 //Represent different colours by numbers 1-6. 0, white, is not used.
 var color=["white", "red", "blue", "yellow", "green", "purple", "orange"];
-//fill grid with random squares.
-for(var i=0; i<gridLength; i++) {
-   var col=Math.floor(Math.random()*6)+1;
-   grid[i]=(col);
-  }
 
-//console.log(grid.join("-"))
-//console.log(grid[63]);
-//display grid - first square is bottom left
-//$('#canvas').html("<p>test</p>");
-var str=new Array();
-for (var i=gridSideLength-1; i>=0; i--) {
-     for(var j=0; j<gridSideLength; j++) {
-         str.push("<sq class='col" + grid[i*8+j] + "'></sq>");
-     }
- }
-$('#canvas').html("");
-$('#canvas').html(str.join(""));
+//initialise grid
+initGrid();
+
+//Update display
+updateDisplay();
+
 
 
 });
