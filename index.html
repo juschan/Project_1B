@@ -37,11 +37,49 @@ function updateDisplay() {
     $('#canvas').html(str.join(""));
 }
 
+function selectSquare() {
+    //console.log("click!");
+    //console.log($(this).index());
+    if (selected[0]===null) {
+        selected[0]=$(this).index();
+        console.log("selected first sq")
+        //highlight box
+    } else if (selected[0]!==null && selected[1]===null) {
+        selected[1]=$(this).index();
+        console.log("selected second sq")
+        //hightlight box
+        //do processing
+    }
+});
+
+}
+
 //create grid, colours
 var grid=new Array(64);
 var gridLength=grid.length;
 var gridSideLength=8;
 var selected=[null,null];
+var possibleMoves = [
+    //horizontal moves
+    [9,10,0,5,6],
+    [1,7,1,6,6],
+    [1,10,0,5,6],
+    [6,7,2,7,6],
+    [2,3,0,4,7],
+    [1,3,0,4,7],
+    [7,9,1,6,6],
+    [9,2,0,5,6],
+    //vertical moves
+    [9,17,0,6,5],
+    [7,15,1,7,5],
+    [8,15,1,7,5],
+    [8,17,0,6,5],
+    [8,24,0,7,4],
+    [16,24,0,7,4],
+    [7,16,1,7,5],
+    [9,16,0,6,5]
+];
+
 
 //initialise grid
 initGrid();
@@ -50,24 +88,8 @@ initGrid();
 updateDisplay();
 
 //handle click on squares. Must occur after updateDisplay
-$('sq').click(function() {
-     //console.log("click!");
-     //console.log($(this).index());
-     if (selected[0]===null) {
-         selected[0]=$(this).index();
-         console.log("selected first sq")
-         //highlight box
-     } else if (selected[0]!==null && selected[1]===null) {
-         selected[1]=$(this).index();
-         console.log("selected second sq")
-         //hightlight box
-         //do processing
-     }
+$('sq').click(selectSquare);
 
-});
-
-
-});
     </script>
 </body>
 </html>
