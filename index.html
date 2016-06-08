@@ -18,6 +18,7 @@ $(function() {
 
 function initGrid() {
     //fill grid with random squares.
+    //content is a colour code. '0' is white. 1-6 are as per css.
     for(var i=0; i<gridLength; i++) {
        var col=Math.floor(Math.random()*6)+1;
        grid[i]=(col);
@@ -36,14 +37,11 @@ function updateDisplay() {
     $('#canvas').html(str.join(""));
 }
 
-
 //create grid, colours
 var grid=new Array(64);
 var gridLength=grid.length;
 var gridSideLength=8;
 
-//Represent different colours by numbers 1-6. 0, white, is not used.
-var color=["white", "red", "blue", "yellow", "green", "purple", "orange"];
 
 //initialise grid
 initGrid();
