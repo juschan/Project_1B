@@ -1,0 +1,10 @@
+* { padding: 0px; border: 1px solid black; box-sizing: border-box;}
+#canvas { display: flex; flex-direction: row; flex-wrap: wrap; width: 350px; height:350px; background-color:white; }
+sq { max-width:40px; max-height:40px; padding:20px}
+.col0 {background-color: white;}
+.col1 {background-color: red;}
+.col2 {background-color: blue;}
+.col3 {background-color: yellow;}
+.col4 {background-color: green;}
+.col5 {background-color: purple;}
+.col6 {background-color: orange;}

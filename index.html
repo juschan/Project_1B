@@ -3,60 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Match-Three Game</title>
-    <style>
-        * {padding: 0px;}
-        div {border: 1px solid black; width: 500px; height:500px; }
-    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-    <canvas id="myCanvas" width="500" height="500"></canvas>
+    <div id="canvas">
+        <sq class="col2"></sq>
+
     </div>
 
     <script>
 
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-    var color=["red", "blue", "green", "yellow", "purple", "orange"];
+$(function() {
+//create grid, colours
+var grid=new Array(64);
+var gridLength=grid.length;
+var gridSideLength=8;
 
-    function Square(x,y,length,color) {
-        this.x=x;
-        this.y=y;
-        this.length=length;
-        this.color=color;
-        this.draw = function() {
-            ctx.beginPath();
-            ctx.rect(this.x, this.y, this.length, this.length);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-            ctx.closePath();
-        };
-    }
+//Represent different colours by numbers 1-6. 0, white, is not used.
+var color=["white", "red", "blue", "yellow", "green", "purple", "orange"];
+//fill grid with random squares.
+for(var i=0; i<gridLength; i++) {
+   var col=Math.floor(Math.random()*6)+1;
+   grid[i]=(col);
+  }
 
-    var base_x=20;
-    var base_y=20;
-    var base_length=40;
-    var grid;
-    for(var i=0; i<9; i++) {
-        for(var j=0; j<9; j++) {
-            var col=Math.floor(Math.random()*6);
-            var sq=new Square(base_x+i*base_length, base_y+j*base_length, base_length, color[col]);
-            sq.draw();
-            //grid[i][j]=sq;
-        }
-    }
+//console.log(grid.join("-"))
+//console.log(grid[63]);
+//display grid - first square is bottom left
+//$('#canvas').html("<p>test</p>");
+var str=new Array();
+for (var i=gridSideLength-1; i>=0; i--) {
+     for(var j=0; j<gridSideLength; j++) {
+         str.push("<sq class='col" + grid[i*8+j] + "'></sq>");
+     }
+ }
+$('#canvas').html("");
+$('#canvas').html(str.join(""));
 
 
-
-    // ctx.beginPath();
-    // ctx.rect(20, 40, 40, 40);
-    // ctx.fillStyle = "red";
-    // ctx.fill();
-    // ctx.closePath();
-
-
-
-
+});
     </script>
 </body>
 </html>
