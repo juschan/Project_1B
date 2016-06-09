@@ -18,18 +18,23 @@ $(function() {
 
 
 function numberOfWins() {
+    //console.log("numberOfWins function");
+    //console.log("output in numberofwins: " + grid.join("-"))
     var winsCount=0;
     for(var i=0; i<winsLength; i++) {
-        for (var j=wins[i][2]; j<wins[i][3] ; j++) { //row
-            for (var k=wins[i][0]; k<wins[i][1]; k++) { //column
-                l=j+k*8;
+        for (var j=wins[i][4]; j<wins[i][5] ; j++) { //row
+            for (var k=wins[i][2]; k<wins[i][3]; k++) { //column
+                var l=j+k*8;
                 if(grid[l] === grid[l+wins[i][0]]
                     && grid[l] === grid[l+wins[i][1]]) {
                     winsCount++;
+                    //console.log("WINS: " + grid[l] + "-" + grid[l+wins[i][0]]
+                        + "-" + grid[l+wins[i][1]])
                 }
             }
         }
     }
+    //console.log("winscount: " + winsCount);
     return winsCount;
 }
 
@@ -40,13 +45,13 @@ function randomSwap(originalSq) {
         //get random number from 1 to 63
         var rand=Math.floor(Math.random()*62)+1;
         var swapSq=(originalSq+rand) % 64
-
+        //console.log("swap sq: " +  swapSq);
         //test if it's the same "colour". If so, choose restart loop
-        if( grid[originalSq] === grid [swapSq]) continue;
+        if( grid[originalSq] === grid[swapSq]) continue;
         //if it's a different colour, then swap
         var temp=grid[swapSq];
-        grid[swapSq] = grid[l];
-        grid[l]=grid[temp];
+        grid[swapSq] = grid[originalSq];
+        grid[originalSq]=grid[temp];
         success=true;
     }
 }
@@ -55,12 +60,11 @@ function randomSwap(originalSq) {
 //do this repeatedly till you have a grid with no winning trios
 function makeGridNoWins() {
     //Loop if numberOfWins is greater than 0
-    var i=0;
     while (numberOfWins() >0) {
         for(var i=0; i<winsLength; i++) {
-            for (var j=wins[i][2]; j<wins[i][3] ; j++) { //row
-                for (var k=wins[i][0]; k<wins[i][1]; k++) { //column
-                    l=j+k*8;
+            for (var j=wins[i][4]; j<wins[i][5] ; j++) { //row
+                for (var k=wins[i][2]; k<wins[i][3]; k++) { //column
+                    var l=j+k*8;
                     if(grid[l] === grid[l+wins[i][0]]
                         && grid[l] === grid[l+wins[i][1]]) {
                         randomSwap(l);
@@ -71,20 +75,33 @@ function makeGridNoWins() {
     }
 }
 
+function getRandomColor() {
+    return Math.floor(Math.random()*7)+1;
+}
 
 function initGrid() {
-    //fill grid with random squares.
-    //content is a colour code. '0' is white. 1-6 are as per css.
-    //for(var i=0; i<gridLength; i++) {
-    //  var col=Math.floor(Math.random()*7)+1;
-    //   grid[i]=(col);
-    //  }
+    //create a valid grid that has some numberOfMoves, and no NumberOfWins
+    //use do-while loop to run at least once
+    //console.log("init code");
+    do {
 
-    //makeGridNoWins();
+        //fill grid with random squares.
+        //content is a colour code. '0' is white. 1-6 are as per css.
+        for(var i=0; i<gridLength; i++) {
+          grid[i]=getRandomColor();
+            }
 
-    //start with viable starting grid.
-    grid=[1,1,7,6,3,5,7,3,4,3,4,3,6,6,2,3,2,7,2,4,4,1,4,6,2,4,4,6,3,1,5,3,4,7,3,6,5,6,3,7,7,5,7,4,1,3,1,5,4,6,5,2,1,6,2,1,4,5,5,4,4,3,3,2];
-    console.log("Number of moves: " + numberOfMoves());
+        //if there are winning trios, modify grid
+        while(numberOfWins()>0) {
+            //console.log("number of wins: " + numberOfWins());
+            makeGridNoWins();
+        }
+        //start with viable starting grid.
+        //grid=[1,1,7,6,3,5,7,3,4,3,4,3,6,6,2,3,2,7,2,4,4,1,4,6,2,4,4,6,3,1,5,3,4,7,3,6,5,6,3,7,7,5,7,4,1,3,1,5,4,6,5,2,1,6,2,1,4,5,5,4,4,3,3,2];
+        //numberOfWins();
+        //console.log("Number of moves: " + numberOfMoves());
+    }  while(numberOfMoves()===0)
+    //console.log("init done");
 }
 
 function updateDisplay() {
@@ -134,7 +151,7 @@ function selectSquare() {
             //If there are wins, remove wins, updateDisplay, sleep
             //Move squares to form complete grid again
     }
-    
+
     //check number of moves. if none, game over and show 'empty' grid.
     if(numberOfMoves()===0) {
         console.log("Game Over");
@@ -190,7 +207,7 @@ initGrid();
 updateDisplay();
 
 //handle click on squares. Must occur after updateDisplay
-$('sq').click(selectSquare);
+//$('sq').click(selectSquare);
 
 });
     </script>
