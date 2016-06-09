@@ -175,6 +175,33 @@ function ReverseSwap(){
     $('sq').click(selectSquare);
 }
 
+function fillGrid() {
+    for(var i=0; i<gridSideLength; i++) { //row
+        for(var j=0; j<gridSideLength; j++) { //column
+            var k=i*8+j;
+            //test for empty grid
+            if(grid[k]===0) {
+                //if on last row, then fill with randomsq
+                if(i===(gridSideLength-1) {
+                    grid[k] =getRandomColor();
+                    continue;
+                }
+                //if empty, then swap with next non-empty sq on top
+                do {
+                    k+=8;
+                    if(grid[k]!==empty) {
+                        switchSq(k,k-8);
+                        break;
+                    }
+                } while(k<gridLength)
+                console.log("ERROR: fillGrid FAIL!")    
+            }
+        }
+    }
+}
+
+
+
 function selectSquare() {
     //console.log("click!");
     //console.log($(this).index());
@@ -219,14 +246,14 @@ function selectSquare2(){
 function selectSquare3() {
     clearInterval(timerId);
     //fill the grid
-
+    fillGrid();
+    updateDisplay();
     //test if filled grid has wins
     if(numberOfWins()>0) {
         timerId=setInterval(selectedSquare2,1000);
     } else {
         timerId=setInterval(selectedSquare4,1000);
     }
-
 }
 
 function selectSquare4() {
