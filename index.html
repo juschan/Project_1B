@@ -149,7 +149,21 @@ function convertCoord(num) {
 }
 
 function isSwapValid() {
-    return true;
+    //check if same sq Selected
+    if(selected[0]===selected[1]) return false;
+
+    //calc 4 sq that are valid for the first square
+    var base=selected[0];
+    var base_left = (base % 8 ===0)? null: base-1;
+    var base_right = ((base+1) % 8 ===0)? null: base+1;
+    var base_top = (base>=56)? null: base+8;
+    var base_bottom = (base<=7)? null: base-8;
+
+    var m=selected[1];
+    if(base_left ===m || base_right===m || base_top ===m || base_bottom===m) {
+        return true;
+    }
+    return false;
 }
 
 function ReverseSwap(){
@@ -172,11 +186,11 @@ function selectSquare() {
     if(selected.length===1) return;
 
     //test if swap adjacent(ie. if valid).
-    //if(!isSwapValid()) {
+    if(!isSwapValid()) {
         //invalid selection, try again
-    //    selected=[null, null];
-    //    return;
-    //}
+        selected=[];
+        return;
+    }
 
     //swap squares
     switchSq(selected[0], selected[1]);
@@ -186,11 +200,14 @@ function selectSquare() {
     //when there are no winning trios
     if(numberOfWins()===0) {
         timerId=setInterval(ReverseSwap,1000);
-
+    } else {
+        timerId=setInterval(selectSquare2,1000);
     }
 }
 
 function selectSquare2(){
+    clearInterval(timerId);
+
     while(numberOfWins() >0) {
             //If there are wins, remove wins, updateDisplay, sleep
             //Move squares to form complete grid again
