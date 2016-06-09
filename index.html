@@ -182,7 +182,7 @@ function fillGrid() {
             //test for empty grid
             if(grid[k]===0) {
                 //if on last row, then fill with randomsq
-                if(i===(gridSideLength-1) {
+                if(i===(gridSideLength-1)) {
                     grid[k] =getRandomColor();
                     continue;
                 }
@@ -194,7 +194,7 @@ function fillGrid() {
                         break;
                     }
                 } while(k<gridLength)
-                console.log("ERROR: fillGrid FAIL!")    
+                console.log("ERROR: fillGrid FAIL!")
             }
         }
     }
@@ -257,6 +257,7 @@ function selectSquare3() {
 }
 
 function selectSquare4() {
+    clearInterval(timerId);
     //check number of moves. if none, game over and show 'empty' grid.
     if(numberOfMoves()===0) {
         console.log("Game Over");
