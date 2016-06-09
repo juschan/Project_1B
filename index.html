@@ -16,6 +16,33 @@
 
 $(function() {
 
+
+function numberOfWins() {
+    var winsCount=0;
+    for(var i=0; i<winsLength; i++) {
+        for (var j=wins[i][2]; j<wins[i][3] ; j++) { //row
+            for (var k=wins[i][0]; k<wins[i][1]; k++) { //column
+                l=j+k*8;
+                if(grid[l] === grid[l+wins[i][0]]
+                    && grid[l] === grid[l+wins[i][1]]) {
+                    winsCount++;
+                }
+            }
+        }
+    }
+    return winsCount;
+}
+
+}
+
+function makeGridNoWins() {
+    
+
+
+
+}
+
+
 function initGrid() {
     //fill grid with random squares.
     //content is a colour code. '0' is white. 1-6 are as per css.
@@ -23,6 +50,8 @@ function initGrid() {
     //  var col=Math.floor(Math.random()*7)+1;
     //   grid[i]=(col);
     //  }
+
+    makeGridNowins();
 
     //start with viable starting grid.
     grid=[1,1,7,6,3,5,7,3,4,3,4,3,6,6,2,3,2,7,2,4,4,1,4,6,2,4,4,6,3,1,5,3,4,7,3,6,5,6,3,7,7,5,7,4,1,3,1,5,4,6,5,2,1,6,2,1,4,5,5,4,4,3,3,2];
@@ -60,15 +89,14 @@ function numberOfMoves() {
 function selectSquare() {
     //console.log("click!");
     //console.log($(this).index());
-    if (selected[0]===null) {
-        selected[0]=$(this).index();
-        console.log("selected first sq")
-        //highlight box
-    } else if (selected[0]!==null && selected[1]===null) {
-        selected[1]=$(this).index();
-        console.log("selected second sq")
-    }
+
+    selected.push($(this).index());
+
+    //return from function to await second selected square
+    if(selected.length===1) return;
+
     //if selected has two elements, swap locations (try order in flexbox)
+
 
     //test if swap adjacent. If not unswap. selected=[].
 
@@ -98,8 +126,6 @@ function selectSquare() {
 
 }
 
-
-
 //create grid, colours
 var grid=new Array(64);
 var gridLength=grid.length;
@@ -126,6 +152,9 @@ var moves = [
     [9,16,0,6,5]
 ];
 var movesLength=moves.length;
+
+var wins = [[1,2,0,5,0,7],[8,16,0,7,0,5]];
+var winsLength=wins.length;
 
 //initialise grid
 initGrid();
