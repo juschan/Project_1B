@@ -6,14 +6,14 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"> -->
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+   <link href='https://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="canvas">
-        <sq class="col2"></sq>
-
+    <h1>Color Crush!</h1>
+    <div class="frame">
+        <div id="canvas"></div>
     </div>
-
     <script>
 
 $(function() {
@@ -259,10 +259,10 @@ function selectSquare() {
     //check if there are winning trios after swap
     if(numberOfWins()===0) {
         //when there are no winning trios
-        timerId=setInterval(ReverseSwap,2000);
+        timerId=setInterval(ReverseSwap,600);
     } else {
         //run the code that will deal with the crush!
-        timerId=setInterval(selectSquare2,2000);
+        timerId=setInterval(selectSquare2,600);
     }
 }
 
@@ -274,7 +274,7 @@ function selectSquare2(){
     crushWins();
     updateDisplay();
     //start filling in voids
-    timerId=setInterval(selectSquare3,2000);
+    timerId=setInterval(selectSquare3,600);
 }
 
 //fill squares and test if there are any more wins. If so, call selectSquare2
@@ -285,10 +285,10 @@ function selectSquare3() {
     updateDisplay();
     //test if filled grid has wins
     if(numberOfWins()>0) {
-        timerId=setInterval(selectSquare2,2000);
+        timerId=setInterval(selectSquare2,600);
     } else {
         $('sq').click(selectSquare);
-        timerId=setInterval(selectSquare4,2000);
+        timerId=setInterval(selectSquare4,600);
     }
 }
 
