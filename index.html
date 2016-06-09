@@ -148,7 +148,7 @@ function convertCoord(num) {
     return (7-Math.floor(num/8))*8+ (num % 8)
 }
 
-function isSwapValid() {
+function isSwapAdjacent() {
     //check if same sq Selected
     if(selected[0]===selected[1]) return false;
 
@@ -200,6 +200,10 @@ function fillGrid() {
     }
 }
 
+function crushWins() {
+
+    
+}
 
 
 function selectSquare() {
@@ -212,8 +216,8 @@ function selectSquare() {
     //return from function to await second selected square
     if(selected.length===1) return;
 
-    //test if swap adjacent(ie. if valid).
-    if(!isSwapValid()) {
+    //test if swap adjacent
+    if(!isSwapAdjacent()) {
         //invalid selection, try again
         selected=[];
         return;
@@ -233,16 +237,18 @@ function selectSquare() {
     }
 }
 
+//deal with winning trios - CRUSH!!
 function selectSquare2(){
     clearInterval(timerId);
 
-    while(numberOfWins() >0) {
-            //If there are wins, remove wins, updateDisplay, sleep
-            //Move squares to form complete grid again
-            break;
-    }
+    //If there are wins, crush wins, updateDisplay
+    crushWins();
+    updateDisplay();
+    //start filling in voids
+    timerId=setInterval(selectSquare3,1000);
 }
 
+//fill squares and test if there are any more wins. If so, call selectSquare2
 function selectSquare3() {
     clearInterval(timerId);
     //fill the grid
@@ -256,6 +262,7 @@ function selectSquare3() {
     }
 }
 
+//No more winning trios, either game over or next selection
 function selectSquare4() {
     clearInterval(timerId);
     //check number of moves. if none, game over and show 'empty' grid.
