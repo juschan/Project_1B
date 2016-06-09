@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Match-Three Game</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -150,11 +152,21 @@ function isSwapValid() {
     return true;
 }
 
+function ReverseSwap(){
+    clearInterval(timerId);
+    switchSq(selected[0], selected[1]);
+    selected=[];
+    updateDisplay();
+    //must re-estab event handlers after injecting new set of sq
+    $('sq').click(selectSquare);
+}
+
 function selectSquare() {
     //console.log("click!");
     //console.log($(this).index());
 
     selected.push(convertCoord($(this).index()));
+    //$(this).effect('highlight', {color: 'red'}, 200)
     console.log("selected length: " + selected.length);
     //return from function to await second selected square
     if(selected.length===1) return;
@@ -166,16 +178,19 @@ function selectSquare() {
     //    return;
     //}
 
-    console.log("selected: " + selected[0] + "-" + selected[1]);
     //swap squares
-    console.log(grid.join("-"));
     switchSq(selected[0], selected[1]);
-    console.log(grid.join("-"));
     updateDisplay();
-    selected=[];
+
     //check if there are winning trios after swap
+    //when there are no winning trios
+    if(numberOfWins()===0) {
+        timerId=setInterval(ReverseSwap,1000);
 
+    }
+}
 
+function selectSquare2(){
     while(numberOfWins() >0) {
             //If there are wins, remove wins, updateDisplay, sleep
             //Move squares to form complete grid again
@@ -230,6 +245,7 @@ var movesLength=moves.length;
 //horizontal wins, then vertical wins
 var wins = [[1,2,0,6,0,8],[8,16,0,8,0,6]];
 var winsLength=wins.length;
+var timerId;
 
 
 //Actual game logic here
