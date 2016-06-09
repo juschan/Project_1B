@@ -41,21 +41,6 @@ function updateDisplay() {
     $('#canvas').html(str.join(""));
 }
 
-function selectSquare() {
-    //console.log("click!");
-    //console.log($(this).index());
-    if (selected[0]===null) {
-        selected[0]=$(this).index();
-        console.log("selected first sq")
-        //highlight box
-    } else if (selected[0]!==null && selected[1]===null) {
-        selected[1]=$(this).index();
-        console.log("selected second sq")
-        //hightlight box
-        //do processing
-    }
-}
-
 function numberOfMoves() {
     var moveCount=0;
     for(var i=0; i<movesLength; i++) {
@@ -71,6 +56,38 @@ function numberOfMoves() {
     }
     return moveCount;
 }
+
+function selectSquare() {
+    //console.log("click!");
+    //console.log($(this).index());
+    if (selected[0]===null) {
+        selected[0]=$(this).index();
+        console.log("selected first sq")
+        //highlight box
+    } else if (selected[0]!==null && selected[1]===null) {
+        selected[1]=$(this).index();
+        console.log("selected second sq")
+
+    //if selected has two elements, swap locations (try order in flexbox)
+
+    //test if swap adjacent. If not unswap. selected=[].
+
+    //if adjacent, test number of wins. if none, unswap. selected=[].
+
+    //If there are wins, remove wins, updateDisplay, sleep
+
+    //Move squares
+
+    //Check number of wins. loop till no wins.
+
+    //check number of moves. if none, game over. show empty grid.
+
+    //if number of moves not none, selected=[];
+
+    }
+}
+
+
 
 //create grid, colours
 var grid=new Array(64);
@@ -98,7 +115,6 @@ var moves = [
     [9,16,0,6,5]
 ];
 var movesLength=moves.length;
-
 
 //initialise grid
 initGrid();
