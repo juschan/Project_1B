@@ -67,7 +67,7 @@ function selectSquare() {
     } else if (selected[0]!==null && selected[1]===null) {
         selected[1]=$(this).index();
         console.log("selected second sq")
-
+    }
     //if selected has two elements, swap locations (try order in flexbox)
 
     //test if swap adjacent. If not unswap. selected=[].
@@ -80,11 +80,22 @@ function selectSquare() {
 
     //Check number of wins. loop till no wins.
 
-    //check number of moves. if none, game over. show empty grid.
-
-    //if number of moves not none, selected=[];
-
+    //check number of moves. if none, game over and show 'empty' grid.
+    if(numberOfMoves()===0) {
+        console.log("Game Over");
+        //create grid with all 0.
+        for(var i=0; i<gridLength; i++) {
+            grid[i]=0;
+        }
+        //show all squares of the same colour. Refer to CSS for colour used.
+        updateDisplay();
+        //no event handler after display. Game over.
+    } else {
+    //if number of moves not none, reset selected to allow for new swaps
+        console.log("Selected two new squares");
+        selected=[];
     }
+
 }
 
 
