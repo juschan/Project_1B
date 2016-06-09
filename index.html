@@ -124,19 +124,17 @@ function selectSquare() {
     //return from function to await second selected square
     if(selected.length===1) return;
 
-    //if selected has two elements, swap locations (try order in flexbox)
+    //if selected has two elements, swap locations (use order in flexbox)
 
 
     //test if swap adjacent. If not unswap. selected=[].
 
     //if adjacent, test number of wins. if none, unswap. selected=[].
-
-    //If there are wins, remove wins, updateDisplay, sleep
-
-    //Move squares
-
-    //Check number of wins. loop till no wins.
-
+    while(numberOfWins() >0) {
+            //If there are wins, remove wins, updateDisplay, sleep
+            //Move squares to form complete grid again
+    }
+    
     //check number of moves. if none, game over and show 'empty' grid.
     if(numberOfMoves()===0) {
         console.log("Game Over");
