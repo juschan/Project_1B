@@ -192,15 +192,16 @@ function selectSquare() {
         return;
     }
 
-    //swap squares
+    //Squares are valid, swap squares
     switchSq(selected[0], selected[1]);
     updateDisplay();
 
     //check if there are winning trios after swap
-    //when there are no winning trios
     if(numberOfWins()===0) {
+        //when there are no winning trios
         timerId=setInterval(ReverseSwap,1000);
     } else {
+        //run the code that will deal with the crush!
         timerId=setInterval(selectSquare2,1000);
     }
 }
@@ -213,7 +214,22 @@ function selectSquare2(){
             //Move squares to form complete grid again
             break;
     }
+}
 
+function selectSquare3() {
+    clearInterval(timerId);
+    //fill the grid
+
+    //test if filled grid has wins
+    if(numberOfWins()>0) {
+        timerId=setInterval(selectedSquare2,1000);
+    } else {
+        timerId=setInterval(selectedSquare4,1000);
+    }
+
+}
+
+function selectSquare4() {
     //check number of moves. if none, game over and show 'empty' grid.
     if(numberOfMoves()===0) {
         console.log("Game Over");
