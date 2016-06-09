@@ -41,7 +41,7 @@ function numberOfWins() {
 }
 
 function switchSq(a,b) {
-    console.log("switchSq: " + grid[a] + "-" + grid[b]);
+    //console.log("switchSq: " + grid[a] + "-" + grid[b]);
     var temp=grid[a];
     grid[a]=grid[b];
     grid[b]=temp;
@@ -179,22 +179,21 @@ function fillGrid() {
     for(var i=0; i<gridSideLength; i++) { //row
         for(var j=0; j<gridSideLength; j++) { //column
             var k=i*8+j;
+
             //test for empty grid
             if(grid[k]===0) {
-                //if on last row, then fill with randomsq
-                if(i===(gridSideLength-1)) {
-                    grid[k] =getRandomColor();
-                    continue;
-                }
-                //if empty, then swap with next non-empty sq on top
-                do {
-                    k+=8;
-                    if(grid[k]!==empty) {
-                        switchSq(k,k-8);
+                //console.log("k:" + k);
+                for(var m=i+1;m<gridSideLength;m++) {
+                    n=m*8+j;
+                    //console.log("n:" + n)
+                    if(grid[n]!==0) {
+                        //console.log("k: " + k + "-" + "n: " + n)
+                        switchSq(k,n);
                         break;
                     }
-                } while(k<gridLength)
-                console.log("ERROR: fillGrid FAIL!")
+                }
+                if(grid[k]===0) grid[k]=getRandomColor();
+                //console.log("ERROR: fillGrid FAIL!")
             }
         }
     }
@@ -202,16 +201,16 @@ function fillGrid() {
 
 //get rid of wins. Not just trios, but also longer
 function crushWins() {
+    //array to store affected sq
+    var crushSq=[];
     //transverse each row
     for(var i=0; i<gridSideLength; i++) { //row
         for(var j=0; j<gridSideLength-2; j++) { //column
             var k=i*8+j;
             if(grid[k]===grid[k+1] && grid[k]===grid[k+2]) {
-                grid[k]=0;
-                if(j<gridSideLength-1 && grid[k+2]!==grid[k+3]) {
-                    grid[k+1]=0;
-                    grid[k+2]=0;
-                }
+                crushSq.push(k);
+                crushSq.push(k+1);
+                crushSq.push(k+2);
             }
         }
     }
@@ -220,15 +219,18 @@ function crushWins() {
     for(var i=0; i<gridSideLength-2; i++) { //row
         for(var j=0; j<gridSideLength; j++) { //col
             var k=i*8+j;
-            if(grid[k]===0) continue;
             if(grid[k] === grid[k+8] && grid[k] === grid[k+16]) {
-                grid[k]=0;
-                if(i<gridSideLength-1 && grid[k+16] !== grid[k+24]) {
-                    grid[k+16]=0;
-                    grid[k+24]=0;
-                }
+                crushSq.push(k);
+                crushSq.push(k+8);
+                crushSq.push(k+16);
             }
         }
+    }
+
+    //crush!
+    var crushSqLength=crushSq.length;
+    for(var i=0; i<crushSqLength; i++) {
+        grid[crushSq[i]]=0;
     }
 }
 
@@ -239,7 +241,7 @@ function selectSquare() {
 
     selected.push(convertCoord($(this).index()));
     //$(this).effect('highlight', {color: 'red'}, 200)
-    console.log("selected length: " + selected.length);
+    //console.log("selected length: " + selected.length);
     //return from function to await second selected square
     if(selected.length===1) return;
 
@@ -257,10 +259,10 @@ function selectSquare() {
     //check if there are winning trios after swap
     if(numberOfWins()===0) {
         //when there are no winning trios
-        timerId=setInterval(ReverseSwap,1000);
+        timerId=setInterval(ReverseSwap,2000);
     } else {
         //run the code that will deal with the crush!
-        timerId=setInterval(selectSquare2,1000);
+        timerId=setInterval(selectSquare2,2000);
     }
 }
 
@@ -272,7 +274,7 @@ function selectSquare2(){
     crushWins();
     updateDisplay();
     //start filling in voids
-    timerId=setInterval(selectSquare3,1000);
+    timerId=setInterval(selectSquare3,2000);
 }
 
 //fill squares and test if there are any more wins. If so, call selectSquare2
@@ -283,9 +285,10 @@ function selectSquare3() {
     updateDisplay();
     //test if filled grid has wins
     if(numberOfWins()>0) {
-        timerId=setInterval(selectedSquare2,1000);
+        timerId=setInterval(selectSquare2,2000);
     } else {
-        timerId=setInterval(selectedSquare4,1000);
+        $('sq').click(selectSquare);
+        timerId=setInterval(selectSquare4,2000);
     }
 }
 
@@ -304,10 +307,9 @@ function selectSquare4() {
         //no event handler after display. Game over.
     } else {
     //if number of moves not none, reset selected to allow for new swaps
-        console.log("Selected two new squares");
+        //console.log("Selected two new squares");
         selected=[];
     }
-
 }
 
 //create grid, colours
