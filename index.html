@@ -200,9 +200,36 @@ function fillGrid() {
     }
 }
 
+//get rid of wins. Not just trios, but also longer
 function crushWins() {
-
-    
+    //transverse each row
+    for(var i=0; i<gridSideLength; i++) { //row
+        for(var j=0; j<gridSideLength-2; j++) { //column
+            var k=i*8+j;
+            if(grid[k]===grid[k+1] && grid[k]===grid[k+2]) {
+                grid[k]=0;
+                if(j<gridSideLength-1 && grid[k+2]!==grid[k+3]) {
+                    grid[k+1]=0;
+                    grid[k+2]=0;
+                }
+            }
+        }
+    }
+    //transverse each column.
+    //zeros encountered and should not be considered wins
+    for(var i=0; i<gridSideLength-2; i++) { //row
+        for(var j==0; j<gridSideLength; j++) { //col
+            var k=i*8+j;
+            if(grid[k]===0) continue;
+            if(grid[k] === grid[k+8] && grid[k] === grid[k+16]) {
+                grid[k]=0;
+                if(i<gridSideLength-1 && grid[k+16] !== grid[k+24]) {
+                    grid[k+16]=0;
+                    grid[k+24]=0;
+                }
+            }
+        }
+    }
 }
 
 
