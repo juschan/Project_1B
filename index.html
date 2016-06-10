@@ -260,10 +260,10 @@ function selectSquare() {
     //check if there are winning trios after swap
     if(numberOfWins()===0) {
         //when there are no winning trios
-        timerId=setInterval(ReverseSwap,600);
+        timerId=setInterval(ReverseSwap,delay);
     } else {
         //run the code that will deal with the crush!
-        timerId=setInterval(selectSquare2,600);
+        timerId=setInterval(selectSquare2,delay);
     }
 }
 
@@ -275,7 +275,7 @@ function selectSquare2(){
     crushWins();
     updateDisplay();
     //start filling in voids
-    timerId=setInterval(selectSquare3,600);
+    timerId=setInterval(selectSquare3,delay);
 }
 
 //fill squares and test if there are any more wins. If so, call selectSquare2
@@ -286,10 +286,10 @@ function selectSquare3() {
     updateDisplay();
     //test if filled grid has wins
     if(numberOfWins()>0) {
-        timerId=setInterval(selectSquare2,600);
+        timerId=setInterval(selectSquare2,delay);
     } else {
         $('sq').click(selectSquare);
-        timerId=setInterval(selectSquare4,600);
+        timerId=setInterval(selectSquare4,delay);
     }
 }
 
@@ -345,7 +345,7 @@ var wins = [[1,2,0,6,0,8],[8,16,0,8,0,6]];
 var winsLength=wins.length;
 var timerId;
 var audio = new Audio('./plop.ogg');
-
+var delay = 600;
 
 //Actual game logic here
 //initialise grid
