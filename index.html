@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Match-Three Game</title>
+    <title>Color Crush!</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"> -->
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -231,6 +231,7 @@ function crushWins() {
     var crushSqLength=crushSq.length;
     for(var i=0; i<crushSqLength; i++) {
         grid[crushSq[i]]=0;
+        audio.play();
     }
 }
 
@@ -343,6 +344,7 @@ var movesLength=moves.length;
 var wins = [[1,2,0,6,0,8],[8,16,0,8,0,6]];
 var winsLength=wins.length;
 var timerId;
+var audio = new Audio('plop.ogg');
 
 
 //Actual game logic here
