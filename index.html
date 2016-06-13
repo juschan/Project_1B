@@ -140,6 +140,7 @@ function numberOfMoves() {
             }
         }
     }
+    console.log("Numebr of Moves: " + moveCount);
     return moveCount;
 }
 
@@ -260,10 +261,10 @@ function selectSquare() {
     //check if there are winning trios after swap
     if(numberOfWins()===0) {
         //when there are no winning trios
-        timerId=setInterval(ReverseSwap,delay);
+        timerId=setInterval(ReverseSwap,delay-100);
     } else {
         //run the code that will deal with the crush!
-        timerId=setInterval(selectSquare2,delay);
+        timerId=setInterval(selectSquare2,delay+200);
     }
 }
 
@@ -275,7 +276,7 @@ function selectSquare2(){
     crushWins();
     updateDisplay();
     //start filling in voids
-    timerId=setInterval(selectSquare3,delay);
+    timerId=setInterval(selectSquare3,delay+200);
 }
 
 //fill squares and test if there are any more wins. If so, call selectSquare2
@@ -286,10 +287,10 @@ function selectSquare3() {
     updateDisplay();
     //test if filled grid has wins
     if(numberOfWins()>0) {
-        timerId=setInterval(selectSquare2,delay);
+        timerId=setInterval(selectSquare2,delay+200);
     } else {
         $('sq').click(selectSquare);
-        timerId=setInterval(selectSquare4,delay);
+        timerId=setInterval(selectSquare4,delay+200);
     }
 }
 
@@ -320,23 +321,23 @@ var gridSideLength=8;
 var selected=[];
 var moves = [
     //horizontal moves
-    [9,10,0,5,7],
-    [1,7,1,6,6],
-    [1,10,0,5,6],
-    [6,7,2,7,6],
-    [2,3,0,4,7],
-    [1,3,0,4,7],
-    [7,9,1,6,6],
-    [9,2,0,5,6],
+    [9,10,0,6,8],
+    [1,7,1,7,7],
+    [1,10,0,6,7],
+    [6,7,2,8,7],
+    [2,3,0,5,8],
+    [1,3,0,5,8],
+    [7,9,1,7,7],
+    [9,2,0,6,7],
     //vertical moves
-    [9,17,0,6,5],
-    [7,15,1,7,5],
-    [8,15,1,7,5],
-    [8,17,0,6,5],
-    [8,24,0,7,4],
-    [16,24,0,7,4],
-    [7,16,1,7,5],
-    [9,16,0,6,5]
+    [9,17,0,7,6],
+    [7,15,1,8,6],
+    [8,15,1,8,6],
+    [8,17,0,7,6],
+    [8,24,0,8,5],
+    [16,24,0,8,5],
+    [7,16,1,8,6],
+    [9,16,0,7,6]
 ];
 var movesLength=moves.length;
 
@@ -344,7 +345,7 @@ var movesLength=moves.length;
 var wins = [[1,2,0,6,0,8],[8,16,0,8,0,6]];
 var winsLength=wins.length;
 var timerId;
-var audio = new Audio('./plop.ogg');
+var audio = new Audio('./Plop.ogg');
 var delay = 600;
 
 //Actual game logic here
